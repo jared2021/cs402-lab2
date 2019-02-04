@@ -11,7 +11,7 @@ CCFLAGS    = -g
 LDFLAGS    = 
 
 ## Notice: Change below to your own LAPACK installation from Lab 1.
-LAPACKHOME = /home/fgsong/lapack-3.8.0
+LAPACKHOME = /home/jascho/lapack-3.8.0
 
 
 INCPATH    = -I$(LAPACKHOME)/CBLAS/include
