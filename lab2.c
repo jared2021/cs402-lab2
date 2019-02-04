@@ -1,5 +1,20 @@
 #include "cblas.h"
-#include <cstdio>
+#include <stdio.h>
+
+int main()
+{
+	int randc;
+	printf("How many rows and columns is your matrix?\n");
+	scanf("%d", randc);
+	double* matrixA ;
+	double* matrixB ;
+	double* matrixC ;
+	init_matrix (randc, matrixA);
+	init_matrix (randc, matrixB);
+	unoptimized_dgemm(randc, matrixA, matrixB, matrixC);
+	compare_matrix (randc, matrixC, clbas_dgemm(,,,));
+	return 0;
+}
 
 void compare_matrix(int n, double* A1, double* A2){
 	int i, j;
@@ -19,6 +34,7 @@ void compare_matrix(int n, double* A1, double* A2){
 
 void init_matrix(int n, double* A){
 	int i,j;
+	int RAND_MAX=5;
 	for (i=0;i<n;i++){
 		for(j=0;j<n;j++){
 			*(A + i*n +j)= rand() / (RAND_MAX * 1.0);
@@ -28,12 +44,13 @@ void init_matrix(int n, double* A){
 
 void unoptimized_dgemm(int n, double* A, double* B, double* C)
 {
-	for (int i=0; i<n;i++)
+	int i,j,k;
+	for (i=0; i<n;i++)
 	{
-		for (int j=0; j<n;j++)
+		for (j=0; j<n;j++)
 		{
 			double cij= C[i+j*n]; /* cij= C[i][j] */
-			for (int k=0;k<n;k++)
+			for (k=0;k<n;k++)
 			{
 				cij += A[i+k*n] * B[k+j*n]; /* cij += A[i][k] * B[k][j] */
 			}
