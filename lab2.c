@@ -5,14 +5,17 @@ int main()
 {
 	int randc;
 	printf("How many rows and columns is your matrix?\n");
-	scanf("%d", randc);
-	double* matrixA ;
-	double* matrixB ;
-	double* matrixC ;
+	scanf("%d", &randc);
+	const double aandb=1.0;
+	double* matrixA [randc*randc];
+	double* matrixB [randc*randc];
+	double* matrixC [randc*randc];
+	double* matrixD [randc*randc];
 	init_matrix (randc, matrixA);
 	init_matrix (randc, matrixB);
 	unoptimized_dgemm(randc, matrixA, matrixB, matrixC);
-	compare_matrix (randc, matrixC, clbas_dgemm(,,,));
+	cblas_dgemm(CblasColMajor,CblasNoTrans,CblasNoTrans,randc,randc,randc,aandb,matrixA,randc,matrixB,randc,aandb,matrixD,randc);
+	compare_matrix (randc, matrixC,matrixD);
 	return 0;
 }
 
